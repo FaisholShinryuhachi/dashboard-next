@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import Pagewrapper from "@/components/pagewrapper";
 import { cn } from "@/lib/utils";
+import SidebarNew from "@/components/sidebar-new";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +30,8 @@ export default function RootLayout({
           }
         )}
       >
-        <Sidebar />
+        {/* <Sidebar /> */}
+        <SidebarNew />
         <Header />
         <Pagewrapper>{children}</Pagewrapper>
       </body>
