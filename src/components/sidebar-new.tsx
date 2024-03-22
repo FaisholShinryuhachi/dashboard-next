@@ -1,5 +1,6 @@
 "use client";
 import {
+  AlertCircle,
   ChevronFirst,
   ChevronLeft,
   ChevronRight,
@@ -18,6 +19,7 @@ export default function SidebarNew(children: ReactNode) {
   return (
     <aside className="h-screen bg-red-100">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+        {/* Logo Section */}
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
             src="https://img.logoipsum.com/243.svg"
@@ -33,19 +35,24 @@ export default function SidebarNew(children: ReactNode) {
             {isCollapse ? <ChevronRight /> : <ChevronLeft />}
           </button>
         </div>
+        {/* List Menu */}
+        <SidebarContext.Provider value={isCollapse}>
+          <SidebarItems
+            datas={[
+              {
+                active: true,
+                icon: AlertCircle,
+              },
+            ]}
+          />
+        </SidebarContext.Provider>
+        {/* Account Section */}
         <div className="border-t flex p-3">
           <img
             src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
             alt=""
             className="w-10 h-10 rounded-md"
           />
-          <SidebarContext.Provider value={isCollapse}>
-            <ul className="flex-1 px-3">
-              <SidebarItems data{
-                [active: true]
-              } />
-            </ul>
-          </SidebarContext.Provider>
           <div
             className={`
               flex justify-between items-center
