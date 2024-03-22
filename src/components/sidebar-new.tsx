@@ -1,11 +1,19 @@
 "use client";
-import { ChevronFirst, MoreVertical } from "lucide-react";
-import React, { createContext, useContext, useState } from "react";
+import {
+  ChevronFirst,
+  ChevronLeft,
+  ChevronRight,
+  MoreVertical,
+} from "lucide-react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
 import SidebarItems from "./sidebaritems";
 
-export default function SidebarNew() {
-  const SidebarContext = createContext();
+export const SidebarContext = createContext(false);
+
+export default function SidebarNew(children: ReactNode) {
   const [isCollapse, setIsCollapse] = useState(false);
+
+  const collapseAction = () => setIsCollapse(!isCollapse);
 
   return (
     <aside className="h-screen bg-red-100">
@@ -13,11 +21,16 @@ export default function SidebarNew() {
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
             src="https://img.logoipsum.com/243.svg"
-            className="w-32 overflow-hidden transition-all"
+            className={`overflow-hidden transition-all ${
+              !isCollapse ? "w-32" : "w-0"
+            }`}
             alt=""
           />
-          <button className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
-            <ChevronFirst />
+          <button
+            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+            onClick={collapseAction}
+          >
+            {isCollapse ? <ChevronRight /> : <ChevronLeft />}
           </button>
         </div>
         <div className="border-t flex p-3">
@@ -27,12 +40,18 @@ export default function SidebarNew() {
             className="w-10 h-10 rounded-md"
           />
           <SidebarContext.Provider value={isCollapse}>
-            <SidebarItems />
+            <ul className="flex-1 px-3">
+              <SidebarItems data{
+                [active: true]
+              } />
+            </ul>
           </SidebarContext.Provider>
           <div
             className={`
               flex justify-between items-center
-              overflow-hidden transition-all 
+              overflow-hidden transition-all ${
+                !isCollapse ? "w-52 ml-3" : "w-0"
+              }
           `}
           >
             <div className="leading-4">
